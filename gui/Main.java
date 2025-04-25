@@ -16,7 +16,8 @@ public class Main {
 
         // message dialog to print the age and the name
 
-        JOptionPane.showMessageDialog(null, "Hello, " + name + " your age is " + age);
+        JOptionPane.showMessageDialog(null, "Hello, " + name + " your age is " + age + "!");
+        JOptionPane.showMessageDialog(null, "Press OK to exit!");
 
         System.exit(0);
     }
