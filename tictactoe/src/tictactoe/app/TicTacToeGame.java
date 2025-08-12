@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class TicTacToeGame {
 
 	private static char[][] board = new char[3][3];
-	private static char currentPlayer = 'X';
+	private static char currentPlayer = 'O';
 	private static boolean gameOver = false;
 	
 	public static void main(String[] args) {
@@ -18,7 +18,8 @@ public class TicTacToeGame {
 		Scanner scanner = new Scanner(System.in);
 		
 		while (!gameOver) {
-			System.out.println("Player " + currentPlayer + ", enter your move from (1-9):");
+			if (currentPlayer == 'X') {
+				System.out.println("Player " + currentPlayer + ", enter your move from (1-9):");
 			int move = scanner.nextInt();
 			
 			if(setAndValidateMove(move)) {
@@ -28,6 +29,7 @@ public class TicTacToeGame {
 					gameOver = true;
 				} else if (checkTie()){
 					System.out.println("It's a Tie!");
+					gameOver = true;
 				} else {
 					switchPlayer();
 				}
@@ -35,6 +37,10 @@ public class TicTacToeGame {
 			} else {
 				System.out.println("Invalid move. Try again.");
 			}
+			} else {
+				cpuPlayer();
+			}
+			
 			
 		}
 		scanner.close();
@@ -109,6 +115,12 @@ public class TicTacToeGame {
 	
 	private static void switchPlayer() {
 		currentPlayer = (currentPlayer == 'X')? 'O':'X';
+		
+//		if(currentPlayer == 'X') {
+//			currentPlayer = 'O';
+//		}else {
+//			currentPlayer = 'X';
+//		}
 		cpuPlayer();
 	}
 	
@@ -168,10 +180,17 @@ public class TicTacToeGame {
 		    	
 		    	int position = rand.nextInt(9) +1;
 		    	if(setAndValidateMove(position)) {
-		    		switchPlayer();
 		    		printBoard();
-		    	}
-		    	
+		    		if(checkWin()) {
+						System.out.println("Player "+currentPlayer+" Wins! ");
+						gameOver = true;
+					} else if (checkTie()){
+						System.out.println("It's a Tie!");
+						gameOver = true;
+					} else {
+						switchPlayer();
+					}
+		    	}	
 		    }
 	}
 	
